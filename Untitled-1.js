@@ -1,24 +1,35 @@
-var m;
+var m=[];
 var liq;
-var x=0, y=1e4, z=1e3;
-var a;
+var idx=0;
 function setup()
 {
-    createCanvas(500, 800);
+    createCanvas(800, 800);
     frameRate(60);
-    m = new Mover(); 
-    a = new Attract();
+}
+
+function mouseClicked()
+{
+    m[idx] = new Mover(30+idx*3, mouseX, mouseY, random(255), random(255), random(255));
+    idx++;
 }
 
 function draw()
 {
     background(100, 200, 255);
-    var c = 1;
-    var f = a.attract(m);
-    m.force(f);
-    m.display();
-    m.update();
-    a.display();
+    for (var i=0; i<idx; i++)
+    {
+        for (var j=0; j<idx; j++)
+        {
+            if ( i== j ) continue;
+            var f = m[i].attract(m[j]);
+            m[j].force(f);
+        }
+    }
+    for (var i =0; i<idx; i++) 
+    {
+        m[i].update();
+        m[i].display();
+    }
 }
 
 class Mover
@@ -54,38 +65,14 @@ class Mover
         stroke(150,150,150);
         ellipse(this.loc.x, this.loc.y, this.width, this.height);
     }
-    drag() // liquid의 저항력을 계산 (유체 기체 저항력)
+    attract(mover)
     {
-        var spd = this.vel.mag();
-        var dragMag = liq.c * spd * spd;
-
-        var dragV = new createVector(this.vel.x, this.vel.y); 
-
-        dragV.mult(-1);
-        dragV.normalize();
-        dragV.mult(dragMag);
-
-        this.force(dragV);
-    }
-    isInside()
-    {
-        if ( this.loc.y >= liq.y) return true;
-        return false;
-    }
-}
-
-class Attract
-{
-    constructor()
-    {
-        this.loc = createVector(width/2, height/2);
-        this.mass=20;
-    }
-
-    display()
-    {
-        stroke(0);
-        fill(200, 200, 200);
-        ellipse(this.loc.x, this.loc.y, mass*2, mass*2);
+        var vv = new createVector(this.loc.x-mover.loc.x,this.loc.y-mover.loc.y);
+        var dist = vv.mag();
+        vv.normalize();
+        dist = constrain(dist, 4.0, 10.0);
+        var force = (0.7*mover.mass*this.mass*1.0)/(dist*dist);
+        vv.mult(force);
+        return vv;
     }
 }

@@ -85,7 +85,7 @@ class Mover
         if(this.loc.y>height) this.loc.y=height, this.vel.y *= -1;
         else if (this.loc.y<0) this.loc.y = 0, this.vel.y *= -1;
     }
-    drag() // liquid의 저항력을 계산 (유체 기체 저항력)
+    drag() // liquid, air의 저항력을 계산 (유체 기체 저항력)
     {
         var spd = this.vel.mag();
         var dragMag = liq.c * spd * spd;
