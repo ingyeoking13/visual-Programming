@@ -4,4 +4,12 @@
 ![](3_flow_fields_º¤ÅÍ¹ÌÇ¥Çö.gif)  
 ![](4_flow_fields_±×¸®±â1.gif)
 ![](4_flow_fields_±×¸®±â2.gif)
+![](Ä¸Ã³.PNG)
+![](Ä¸Ã³2.PNG)
+![](5_path_following.gif)
+![](6_seperate_and_seeking.gif)
+![](6_seperate_and_seeking2.gif)
+![](7_focking1.gif)
+![](7_focking2_limited_influence_idst.gif)
+![](7_flocking_final_with_FlowField.gif)
 
