@@ -1,7 +1,5 @@
-## 痢功过  
+#### 痢功过  
 
-
-### Learning Processing Main Page狼 巴 备泅  
 
 ![](1_Pointillism.gif)
 ![](1_pointillismCapture.PNG)
