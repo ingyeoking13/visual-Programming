@@ -1,4 +1,4 @@
-# NatureOfCode_p5Js
-물리 연습
+## 이 Repository는 ... 
 
-![sadfsafd](https://media.giphy.com/media/7JKpBDoDGHaq0DdYX4/giphy.gif)
+`processing sketch`, `p5.js` 와 관련한 작업들을 저장해놓는 Repository 입니다.  
+결과물에 재밌는 GIF가 많으니 한번 보세요.  
