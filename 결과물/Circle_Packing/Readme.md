@@ -11,7 +11,7 @@
 ![](origin_img3.PNG)
 ![](4_사랑해_Cricle_Packing.gif)
 
-여기 까지 해보았고, 하다보니 재밌어서 인터넷 meme 또한 해보았다.   
+여기 까지 해보았고, 하다보니 재밌어서 인터넷 `meme` 또한 해보았다.   
 
 ### Circle Packing with text image3
 ![](origin_img2.PNG)
