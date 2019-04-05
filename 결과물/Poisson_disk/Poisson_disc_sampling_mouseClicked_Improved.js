@@ -1,4 +1,4 @@
-var r = 5;
+var r = 3;
 var cnt = 30;
 var grid = [];
 var w = r / Math.sqrt(2);
@@ -10,8 +10,8 @@ var clicked = false;
 
 function setup()
 {
-    createCanvas(500,400);
-    background(0);
+    createCanvas(500,200);
+    background(255);
     strokeWeight(4);
 
     // STEP 0
@@ -19,7 +19,6 @@ function setup()
     rows = floor(height /w);
     for (var i=0; i< cols * rows; i++) grid[i] = undefined;
     strokeWeight(r*0.3);
-    colorMode(HSB);
 }
 
 function mouseClicked()
@@ -31,11 +30,9 @@ function mouseClicked()
     var i = floor(x/w), j = floor(y/w);
     var pos = createVector(x, y);
     grid[i+ j*cols] = pos;
-    drawed.push(pos);
     active.push(pos);
-
 }
-var mycolor=0;
+
 function draw()
 {
     
@@ -50,8 +47,7 @@ function draw()
             for (var i=0; i<cnt; i++)
             {
                 var sample = p5.Vector.random2D();
-                var m = random(r, Math.sqrt(5)*r);
-                //var m = random(r, 2*r);
+                var m = random(r, 2*r);
                 sample.setMag(m);
                 sample.add(pos);
 
@@ -88,12 +84,11 @@ function draw()
             if( !found ) active.splice(ran, 1);
         }
     }
-    
+
     while(drawed.length > 0 )
     {
         var cur = drawed.shift();
-        stroke((mycolor++)%360, 100,100);
-        point(cur.x, cur.y, 0);
+        point(cur.x, cur.y);
     }
 
 }

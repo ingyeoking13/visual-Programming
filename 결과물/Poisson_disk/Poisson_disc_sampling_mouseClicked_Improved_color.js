@@ -45,13 +45,13 @@ function draw()
         {
             var ran = floor(random(active.length));
             var pos = active[ran];
+            //var pos  = active[0];
             var found = false;
 
             for (var i=0; i<cnt; i++)
             {
                 var sample = p5.Vector.random2D();
-                var m = random(r, Math.sqrt(5)*r);
-                //var m = random(r, 2*r);
+                var m = random(r, 2*r);
                 sample.setMag(m);
                 sample.add(pos);
 
@@ -86,14 +86,15 @@ function draw()
             }
 
             if( !found ) active.splice(ran, 1);
+            // if(!found) active.shift();
         }
     }
-    
+
     while(drawed.length > 0 )
     {
         var cur = drawed.shift();
         stroke((mycolor++)%360, 100,100);
-        point(cur.x, cur.y, 0);
+        point(cur.x, cur.y);
     }
 
 }
