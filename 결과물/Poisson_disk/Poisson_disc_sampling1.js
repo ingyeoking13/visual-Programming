@@ -1,43 +1,39 @@
-var r = 3;
-var cnt = 100;
+var r = 5;
+var cnt = 700;
 var grid = [];
 var w = r / Math.sqrt(2);
 var active = [];
-var drawed = [];
+var order = [];
 var cols, rows;
-
-var clicked = false;
 
 function setup()
 {
-    createCanvas(500,200);
-    background(255);
+    createCanvas(500, 500);
+    background(0);
     strokeWeight(4);
 
     // STEP 0
     cols = floor(width /w);
     rows = floor(height /w);
     for (var i=0; i< cols * rows; i++) grid[i] = undefined;
-}
 
-function mouseClicked()
-{
-    clicked=true;
     // STEP 1
-    var x = mouseX;
-    var y = mouseY;
+    var x = width/2;
+    var y = height/2;
     var i = floor(x/w), j = floor(y/w);
     var pos = createVector(x, y);
     grid[i+ j*cols] = pos;
     active.push(pos);
+    colorMode(HSB);
+
 }
 
 function draw()
 {
-    
-    for (var mm =0; mm<50; mm++)
+    //noLoop();
+    for (var mm =0; mm<30; mm++)
     {
-        if(active.length > 0)
+        if (active.length > 0)
         {
             var ran = floor(random(active.length));
             var pos = active[ran];
@@ -74,7 +70,7 @@ function draw()
                 {
                     found = true;
                     grid[col + row*cols] = sample;
-                    drawed[col + row*cols] =false;
+                    order.push(sample);
                     active.push(sample);
                     break;
                 }
@@ -84,15 +80,21 @@ function draw()
         }
     }
 
-    for (var i =0; i< grid.length; i++)
+    for (var i =0; i< order.length; i++)
     {
-        if( !grid[i] ) continue;
-        if ( drawed[i] ) continue; 
-
-        strokeWeight(r*0.4);
-        point(grid[i].x, grid[i].y);
-        drawed[i] = true;
-
+        if( !order[i] ) continue;
+        stroke(i%360, 100, 100);
+        //stroke(255);
+        strokeWeight(r*0.3);
+        point(order[i].x, order[i].y);
     }
-
+    for (var i =0; i< active.length; i++)
+    {
+        if( !active[i] ) continue;
+        stroke(i%360,100 , 100);
+        strokeWeight(r*0.3);
+        point(active[i].x, active[i].y);
+    }
+    
+   // console.log(active.length);
 }

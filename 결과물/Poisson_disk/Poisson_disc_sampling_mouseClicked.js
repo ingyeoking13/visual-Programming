@@ -1,9 +1,8 @@
-var r = 3;
-var cnt = 100;
+var r = 8;
+var cnt = 700;
 var grid = [];
 var w = r / Math.sqrt(2);
 var active = [];
-var drawed = [];
 var cols, rows;
 
 var clicked = false;
@@ -34,8 +33,8 @@ function mouseClicked()
 
 function draw()
 {
-    
-    for (var mm =0; mm<50; mm++)
+    if (! clicked ) return;
+    for (var mm =0; mm<30; mm++)
     {
         if(active.length > 0)
         {
@@ -74,7 +73,6 @@ function draw()
                 {
                     found = true;
                     grid[col + row*cols] = sample;
-                    drawed[col + row*cols] =false;
                     active.push(sample);
                     break;
                 }
@@ -87,12 +85,7 @@ function draw()
     for (var i =0; i< grid.length; i++)
     {
         if( !grid[i] ) continue;
-        if ( drawed[i] ) continue; 
-
-        strokeWeight(r*0.4);
         point(grid[i].x, grid[i].y);
-        drawed[i] = true;
-
     }
 
 }
