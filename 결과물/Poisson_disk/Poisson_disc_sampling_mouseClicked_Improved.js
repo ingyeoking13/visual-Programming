@@ -77,11 +77,10 @@ function draw()
                     grid[col + row*cols] = sample;
                     drawed.push(sample);
                     active.push(sample);
-                    break;
                 }
             }
 
-            if( !found ) active.splice(ran, 1);
+            active.splice(ran, 1);
         }
     }
 

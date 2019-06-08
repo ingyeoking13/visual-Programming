@@ -10,8 +10,8 @@ var clicked = false;
 
 function setup()
 {
-    createCanvas(500,400);
-    background(0);
+    createCanvas(displayWidth, displayHeight);
+    background(15);
     strokeWeight(4);
 
     // STEP 0
@@ -46,7 +46,6 @@ function draw()
             var ran = floor(random(active.length));
             var pos = active[ran];
             //var pos  = active[0];
-            var found = false;
 
             for (var i=0; i<cnt; i++)
             {
@@ -77,23 +76,21 @@ function draw()
 
                 if(chk)
                 {
-                    found = true;
                     grid[col + row*cols] = sample;
                     drawed.push(sample);
                     active.push(sample);
-                    break;
                 }
             }
 
-            if( !found ) active.splice(ran, 1);
-            // if(!found) active.shift();
+            active.splice(ran, 1);
+            //active.shift();
         }
     }
 
     while(drawed.length > 0 )
     {
         var cur = drawed.shift();
-        stroke((mycolor++)%360, 100,100);
+        stroke((mycolor++)%360, 255,255);
         point(cur.x, cur.y);
     }
 
