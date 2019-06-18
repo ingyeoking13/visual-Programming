@@ -3,7 +3,7 @@
 ## 190617
 from `Junkiyoshi blog`.  
 
-![hi](190617_junkiyoshi/190617_junkiyoshi.gif)
+![hi](190617_junkiyoshi.gif)
 
 ````c++
 void ofApp::setup(){
