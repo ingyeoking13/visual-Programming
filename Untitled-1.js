@@ -12,5 +12,5 @@ function setup()
 var ddd =0;
 function draw()
 {
- d
+
 }
