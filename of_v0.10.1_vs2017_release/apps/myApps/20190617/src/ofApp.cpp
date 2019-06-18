@@ -53,7 +53,7 @@ void ofApp::draw(){
 				}
 				ofEndShape();
 
-				ofDrawLine(location + glm::vec2(radius * cos(direction * DEG_TO_RAD), radius * sin(direction * DEG_TO_RAD)),
+				ofDrawLine(location + glm::vec2(radius * cos(direction_rad), radius * sin(direction_rad)),
 					other + glm::vec2(radius * cos((180 + direction) * DEG_TO_RAD), radius * sin((180 + direction) * DEG_TO_RAD)));
 			}
 		}
