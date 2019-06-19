@@ -15,3 +15,13 @@ from `Junkiyoshi blog`.
 ![.](190619_delaunayTriangulation/190619_delaunay_triangulation.gif)
 ![.](190619_delaunayTriangulation/190619_delaunay_triangulation2.gif)
 ![.](190619_delaunayTriangulation/캡처.PNG)
+
+## [190619_Typowave](190619_TypoWave/Readme.md)
+from Junkiyoshi blog.
+
+![.](190619_TypoWave/190619_TypoWave.gif)
+
+## [190619_TypoNoise](190619_TypoNoise/Readme.md)
+from `Junkiyoshi blog`.  
+
+![.](190619_TypoNoise/190619_TypoNoise.gif)

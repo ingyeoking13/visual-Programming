@@ -4,12 +4,6 @@
     <ClCompile Include="src\ofApp.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="ofxDelaunay.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="Delaunay.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -18,12 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ofApp.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="ofxDelaunay.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="Delaunay.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

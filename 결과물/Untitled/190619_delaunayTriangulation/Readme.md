@@ -52,4 +52,5 @@ Delaunay triangluation 을 생성하는 알고리즘에 대해 공부 해보고 
 그러나 잘 작성된 라이브러리가 있기 때문에 내가 직접 알고리즘을 작성하고 정당성을 증명하는건 조금 미루어본다 ㅋㅋ.  
 내가 추후에 읽어야할 것을 아래에 링크로 남겨두었다.   
 
-http://page.mi.fu-berlin.de/FANIRY/files/faniry_aims.pdf  
+http://page.mi.fu-berlin.de/FANIRY/files/faniry_aims.pdf   
+http://graphics.stanford.edu/courses/cs368-06-spring/handouts/Delaunay_1.pdf

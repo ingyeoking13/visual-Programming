@@ -1,103 +1,42 @@
-#include "ofApp.h"
-#include "../ofxDelaunay.h"
-
-ofxDelaunay delaunay;
-vector<glm::vec2> vec2list;
+﻿#include "ofApp.h"
 
 //--------------------------------------------------------------
-void ofApp::setup(){
-	ofSetFrameRate(60);
-	ofBackground(239);
+void ofApp::setup() {
 	ofSetColor(39);
-	ofSetLineWidth(1);
-	ofTranslate(ofGetWidth() * 0.5, ofGetHeight() * 0.5);
-	for (int i = 0; i <1000; i++)
-	{
-		float x = ofRandom(ofGetWidth());
-		float y = ofRandom(ofGetHeight());
-		vec2list.push_back(glm::vec2(x, y));
-	}
+	ofBackground(239);
+
+	ofTrueTypeFontSettings settings("malgun.ttf", 44);
+	settings.antialiased = true;
+	settings.contours = true;
+	settings.dpi = 72;
+	settings.addRanges(ofAlphabet::Korean);
+	this->font.load(settings);
+
 }
 
 //--------------------------------------------------------------
-void ofApp::update(){
+void ofApp::update() {
 	ofSeedRandom(39);
 }
 
 //--------------------------------------------------------------
-void ofApp::draw(){
-	camera.begin();
-	for (int i = 0; i < vec2list.size(); i++)
+void ofApp::draw() {
+	vector<string> s =
 	{
-		auto x = vec2list[i].x;
-		auto y = vec2list[i].y;
-		x += ofMap(ofNoise(ofGetFrameNum() * 0.005, ofRandom(1000)), 0, 1, -10, 10);
-		y += ofMap(ofNoise(ofGetFrameNum() * 0.005, ofRandom(1000)), 0, 1, -10, 10);
-		ofPoint randomPoint(x, y);
-		delaunay.addPoint(randomPoint);
+		u8"안", u8"녕", u8"하", u8"세", u8"요"
+	};
+
+	for (int y = 0; y < ofGetWidth(); y+=50)
+	{
+		for (int x = 0; x < ofGetHeight(); x+=50)
+		{
+			int idx = ofMap(ofNoise(ofGetFrameNum()*0.005, x*0.0005, y*0.0005), 0, 1, 0, 5);
+			this->font.drawString(s[idx], y, x);
+		}
 	}
-	delaunay.triangulate();
-
-	delaunay.triangleMesh.drawWireframe();
-	camera.end();
 }
 
-int main( ){
-	ofSetupOpenGL(1280,720,OF_WINDOW);			// <-------- setup the GL context
+int main() {
+	ofSetupOpenGL(1960, 1020, OF_WINDOW);			// <-------- setup the GL context
 	ofRunApp(new ofApp());
-}
-
-//--------------------------------------------------------------
-void ofApp::keyPressed(int key){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::keyReleased(int key){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y ){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseDragged(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mousePressed(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseReleased(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseEntered(int x, int y){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseExited(int x, int y){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::windowResized(int w, int h){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::gotMessage(ofMessage msg){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::dragEvent(ofDragInfo dragInfo){ 
-
 }
