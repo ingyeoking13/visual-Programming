@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 	ofSetFrameRate(60);
-	ofBackground(229);
+	ofBackground(239);
 	ofSetColor(39);
 	ofSetLineWidth(3);
 }
@@ -15,56 +15,73 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	auto radius = 20;
-	auto span = 120;
-	auto threshold = 120;
+	ofTranslate(ofGetWidth() * 0.5, ofGetHeight() * 0.5);
+	ofRotate(90);
 
-	vector<glm::vec2> locations;
-	for (auto x = span * 0.5; x < ofGetWidth(); x += span) {
+	auto radius_min = 60;
+	auto radius_max = 110;
+	auto radius_span = 5;
 
-		for (auto y = span * 0.5; y < ofGetHeight(); y += span) {
+	for (int i = 0; i < 3; i++) {
 
-			auto location = glm::vec2(
-				x + ofMap(ofNoise(ofRandom(1000), ofGetFrameNum() * 0.005), 0, 1, -span * 0.5 + radius, span * 0.5 - radius),
-				y + ofMap(ofNoise(ofRandom(1000), ofGetFrameNum() * 0.005), 0, 1, -span * 0.5 + radius, span * 0.5 - radius));
-			locations.push_back(location);
-		}
-	}
+		for (int radius = radius_min; radius < radius_max; radius += radius_span) {
 
-	for (auto location : locations) {
+			ofColor color;
+			color.setHsb(ofRandom(255), 180, 255);
 
-		ofSetColor(ofColor(0, 255, 200));
-		for (auto other : locations) {
+			auto start_deg = ofGetFrameNum() * ofRandom(3, 8) + ofRandom(720);
+			auto len = ofRandom(80, 360);
 
-			if (location == other) { continue; }
+			vector<glm::vec2> vertices_in, vertices_out;
+			auto first = true;
+			for (int deg = start_deg; deg < start_deg + len; deg += 1) {
 
-			auto distance = glm::distance(location, other);
-			if (distance < threshold) {
+				auto radian = deg * DEG_TO_RAD;
+				int position_deg = deg % 720;
+				if (position_deg < 360) {
 
-				auto direction_rad = std::atan2(other.y - location.y, other.x - location.x);
-				auto direction = direction_rad * RAD_TO_DEG;
-				auto width = ofMap(distance, 0, threshold, 360, 0);
-
-				ofNoFill();
-				ofBeginShape();
-				for (auto deg = direction - width * 0.5; deg <= direction + width * 0.5; deg++) {
-
-					ofVertex(location.x + radius * cos(deg * DEG_TO_RAD), location.y + radius * sin(deg * DEG_TO_RAD));
+					vertices_in.push_back(
+						glm::vec2(radius * cos(radian), radius * sin(radian)) 
+						+ 
+						glm::vec2((radius_min + radius_max) * -0.5, (i - 1) * 240)
+					);
+					vertices_out.push_back(
+						glm::vec2((radius + radius_span) * cos(radian), (radius + radius_span) * sin(radian)) 
+						+ 
+						glm::vec2((radius_min + radius_max) * -0.5, (i - 1) * 240)
+					);
 				}
-				ofEndShape();
-
-				ofDrawLine(location + glm::vec2(radius * cos(direction_rad), radius * sin(direction_rad)),
-					other + glm::vec2(radius * cos((180 + direction) * DEG_TO_RAD), radius * sin((180 + direction) * DEG_TO_RAD)));
+				else {
+					int tmp_radius = ofMap(radius, radius_min, radius_max, radius_max, radius_min);
+					vertices_in.push_back(
+						glm::vec2(-1 * tmp_radius * cos(radian), tmp_radius * sin(radian)) 
+						+
+						glm::vec2((radius_min + radius_max) * 0.5, (i - 1) * 240)
+					);
+					vertices_out.push_back(
+						glm::vec2(-1 * (tmp_radius - radius_span) * cos(radian), (tmp_radius - radius_span) * sin(radian)) 
+						+ 
+						glm::vec2((radius_min + radius_max) * 0.5, (i - 1) * 240)
+					);
+				}
 			}
-		}
 
-		ofFill();
-		ofSetColor(39);
-		ofDrawCircle(location, radius * 0.65);
-		ofSetColor(229);
-		ofDrawCircle(location, radius * 0.35);
-		ofSetColor(39);
-		ofDrawCircle(location, radius * 0.25);
+			reverse(vertices_out.begin(), vertices_out.end());
+
+			ofFill();
+			ofSetColor(color);
+			ofBeginShape();
+			ofVertices(vertices_in);
+			ofVertices(vertices_out);
+			ofEndShape(true);
+
+			ofNoFill();
+			ofSetColor(39);
+			ofBeginShape();
+			ofVertices(vertices_in);
+			ofVertices(vertices_out);
+			ofEndShape(true);
+		}
 	}
 }
 
