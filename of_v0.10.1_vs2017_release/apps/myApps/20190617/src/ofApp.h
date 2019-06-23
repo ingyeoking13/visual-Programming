@@ -8,5 +8,8 @@ class ofApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
-		ofTrueTypeFont font;
+
+		ofEasyCam cam;
+		vector<glm::vec2> locations;
+		int width=30;
 };
