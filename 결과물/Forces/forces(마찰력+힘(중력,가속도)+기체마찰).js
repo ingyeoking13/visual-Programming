@@ -46,7 +46,7 @@ function draw()
 
 class Mover
 {
-    constructor(sz, x,y,  r, g, b)
+    constructor(sz, x,y, r, g, b)
     {
         this.loc = new createVector(x, y);
         this.vel = new createVector(0,0);
