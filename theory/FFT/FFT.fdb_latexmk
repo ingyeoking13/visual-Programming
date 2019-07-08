@@ -1,10 +1,10 @@
 # Fdb version 3
-["pdflatex"] 1560695152 "d:/source/theNatureOfCode/theory/FFT/FFT.tex" "d:/source/theNatureOfCode/theory/FFT/FFT.pdf" "FFT" 1560697536
-  "FFT.aux" 1560695162 1158 45ec0b8184226d7c4583e84a5cb85487 "pdflatex"
-  "FFT.out" 1560695162 220 10f0e4ebfa9ef27bda5767b2ca1171e3 "pdflatex"
-  "FFT.tex" 1560697529 21944 a02c4843a7843f9f18d6dee90987278b ""
-  "d:/source/theNatureOfCode/theory/FFT/FFT.aux" 1560695162 1158 45ec0b8184226d7c4583e84a5cb85487 ""
-  "d:/source/theNatureOfCode/theory/FFT/FFT.tex" 1560697529 21944 a02c4843a7843f9f18d6dee90987278b ""
+["pdflatex"] 1562030882 "d:/source/theNatureOfCode/theory/FFT/FFT.tex" "d:/source/theNatureOfCode/theory/FFT/FFT.pdf" "FFT" 1562030893
+  "FFT.aux" 1562030889 1158 45ec0b8184226d7c4583e84a5cb85487 "pdflatex"
+  "FFT.out" 1562030889 220 10f0e4ebfa9ef27bda5767b2ca1171e3 "pdflatex"
+  "FFT.tex" 1562030876 21938 e6da37127366a01a0509d4e0d1dd45f5 ""
+  "d:/source/theNatureOfCode/theory/FFT/FFT.aux" 1562030889 1158 45ec0b8184226d7c4583e84a5cb85487 ""
+  "d:/source/theNatureOfCode/theory/FFT/FFT.tex" 1562030876 21938 e6da37127366a01a0509d4e0d1dd45f5 ""
   "d:/texlive/2019/texmf-dist/fonts/map/fontname/texfonts.map" 1558335871 3332 103109f5612ad95229751940c61aada0 ""
   "d:/texlive/2019/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1558333983 1004 54797486969f23fa377b128694d548df ""
   "d:/texlive/2019/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1558333983 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -279,8 +279,8 @@
   "d:/texlive/2019/texmf.cnf" 1558340304 673 4ae7b2f49cee444c5343a45b5d0f169c ""
   (generated)
   "d:/source/theNatureOfCode/theory/FFT/FFT.log"
-  "FFT.log"
-  "FFT.out"
   "FFT.aux"
   "d:/source/theNatureOfCode/theory/FFT/FFT.pdf"
+  "FFT.log"
+  "FFT.out"
   "FFT.pdf"

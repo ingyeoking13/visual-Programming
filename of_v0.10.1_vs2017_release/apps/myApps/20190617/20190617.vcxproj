@@ -183,6 +183,7 @@
     <ClCompile Include="src\ofApp.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\HandWriting.hpp" />
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="src\yh2dParticle.hpp" />
   </ItemGroup>
