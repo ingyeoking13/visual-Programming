@@ -59,11 +59,3 @@ public:
 		if (y - radius < 0) y = radius, velocity.y = -velocity.y;
 	}
 };
-class Heart 
-{
-private: 
-
-public:
-
-
-};

@@ -1,7 +1,4 @@
 \documentclass{article}
-\usepackage{graphicx}
-\usepackage{amssymb}
-\usepackage{amsthm}
 \usepackage{hyperref}
 \usepackage{kotex}
 \title{Delaunay Triangulation Algorithm}
@@ -13,7 +10,7 @@
     \url{http://page.mi.fu-berlin.de/FANIRY/files/faniry_aims.pdf}
 \end{abstract}
 \section{introduction}
-점들로 이루어진 집합에 대해 들로네 삼각분할을 수행 하는 것은 계산 기하학의 1
+점들로 이루어진 집합에 대해 들로네 삼각분할을 수행 하는 것은 계산 기하학의 
 고전적인 문제다. 이 문제는 1934년에 프랑스인 수학자 Boris Nikolaevich Delone(Delaunay)가
 1934년 발견하였다. 이 문제에 대해서 수학자와 컴퓨터 과학자들이 많은 
 알고리즘들을 제시하고 있다. 그 중, 1985년에 Guibas 와 Stolfi가 제안한 
@@ -48,98 +45,6 @@ plane sweep 알고리즘이 될 것 이다. 챕터 4에서는 DAG-based 자료�
 그리고 나서 들로네 삼각분할의 쌍대 특징에 대해 이야기 해 볼 것이다. 
 \subsection{보로노이 다이어그램}  
 \subsubsection{보로노이 셀}
-$\mathcal{P} = \{ p_1, p_2, p_3, ... , p_n \} $을 유클리디안 평면에 존재하는 
-구역안에 있는 점의 집합이라 하자. 이 평면 위에 존재하는 구역을 보로노이 셀이라고 하며 
-다음 조건을 만족한다. 구역 $p_i$에 가까이 존재하는 모든 점들은 보로노이 셀 
-$\mathcal{V}(p_i)$라 한다. 
-\[
-    \mathcal{V}(p_i) = \{x \in \mathbb{R}^2:d(x, p_i) \le d(x, p_j), \forall i \ne j \}
-\]
-즉, 다른 점들보다 점 $p_i$와 가까운 공간을 대해 $\mathcal{V}(p_i)$라고 한다. 
-공간상의 어떤 지점들은 하나 이상의 점들과 같은 거리를 가지고 있다. 이 지점들의 집합을 
-voronoi diagram 이라고 한다. $\mathcal{V}(\mathcal{P})$. 
-
-\subsubsection{Example}
-
-평면 위의 세 구역을 고려해보자. 기하학적으로, 보로노이 다이어그램은 세 지점이 이루는 
-삼각형을 수직이등분하게된다. 이 세 선은 이 삼각형의 외접원의 중심에서 교차하게 된다. 
-
-\begin{figure}[h]
-    \includegraphics{capture.PNG}
-\end{figure}
-
-\subsubsection{Half-Planes}
-
-$H(p_i, p_j)$를 $B_{ij}$에 의해 나누어지고 $p_i$를 포함하는 반평면이라고 한다. $H(p_i,p_j)$를 
-다음과 같이 정의할 수 있다. 
-$$
-H(p_i, p_j) = \{ x \in \mathbb{R}^2 | d(x, p_i) < d(x, p_j) \}, i \ne j,
-$$ 
-이 표기를 이용하여 보로노이 다이어그램을 다음과 같이 정의 할 수 있다. 
-$$
-\mathcal{V}(p_i) = \bigcap_{j \ne i}H(p_i, p_j), \forall j.
-$$
-교집합은 $i$와 다른 모든 $j$에 대해 수행한다. 
-
-\subsection{Dual of $\mathcal{V}(\mathcal{P})$}
-
-\textbf{definition 2.2.1} 평면 그래프 G에 대한 쌍대는 다음과 같이 생성될 수 있다. 
-G의 각 면은 vertex로 표현되고, 그 vertex 간에 간선을 그리면 
-간선 $e \in E(G)$은 기존 그래프에서 경계를 맞대고 있는 면들을 표현한다.  
-
-\textbf{definition 2.2.2} 점 집합 $\mathcal{P}$의 삼각분할은 부분 평면 S.... 문소리고 해석안됨 
-
-\subsubsection {Construction}
-
-1934년, 들로네는 보로노이 다이어그램의 쌍대 그래프가 보로노이 셀 $\mathcal{P}$  
-을 삼각분할 한다는 것을 증명했다. 보로노이 셀을 삼각분할 한 것을 들로네 삼각분할 
-$\mathcal{D}()\mathcal{P}$라 한다. 아래 그림은 보로노이 다이어그램 $n=11$ 셀과 
-그에 대응하는 쌍대 그래프, 들로네 삼각분할이다. 
-
-\begin{figure}[h]
-    \includegraphics{capture2.PNG}
-\end{figure}
-
-\subsubsection{Duality Properties} 
-
-이 보로노이 다이어그램 그래프의 쌍대 그래프는 edges, vertices, faces에 대해 
-일대일 대응하는 성격을 띈다. 아래는 그 관찰에 대해 정리한 것이다. 
-
-\textbf{D1.} $\mathcal{D}(\mathcal{P})$는 $\mathcal{V}(\mathcal{P})$의 
-쌍대 그래프이다. 
-
-\textbf{D2.} 네 점 $\mathcal{P}$가 같은 외접원 안에 포함되지 않는다면, 
-$\mathcal{D}(\mathcal{P})$는 삼각분할이다. (see 2.3.2)
-
-\textbf{D3.}  $\mathcal{D}(\mathcal{P})$의 모든 삼각형은 
-$\mathcal{V}(\mathcal{P})$의 vertex와 대응한다. 
-
-\textbf{D4.}  $\mathcal{D}(\mathcal{P})$의 모든 edge은 
-$\mathcal{V}(\mathcal{P})$의 edge와 1:1 대응한다. 
-
-\textbf{D5.}  $\mathcal{D}(\mathcal{P})$의 모든 vertex는 
-$\mathcal{V}(\mathcal{P})$의 faces(cell)와 1:1 대응한다. 
-
-\textbf{D6.}  $\mathcal{D}(\mathcal{P})$의 외곽 경계는 
-$\mathcal{P}$의 convex hull 이다. 
-
-\textbf{D7.}  $\mathcal{D}(\mathcal{P})$의 내부 삼각형들은 
-vertex를 포함하지 않는다. 
-
-\textbf{Remark 2.2.3} ... 
-
-\subsection{The Delaunay triangulation}
-
-\textbf{Definition 2.3.1}
-
-\begin{figure}[h]
-    \includegraphics{capture3.PNG}
-\end{figure}
-    
-\section{The Algorithm}
-
-
-
-
-
+$\Psi = \{ p_1, p_2, p_3, ... , p_n \} $을 유클리디안 평면 위의 
+점 집합이라 하자. 
 \end{document}
