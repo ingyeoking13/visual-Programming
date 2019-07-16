@@ -59,7 +59,8 @@ $C(x)$는 정형적으로 다음과 같이 표현할 수 있다. 이때 $A(x)$�
 \[
 C(x)=\sum_{i=0}^{2n-2}c_ix^i \text{, and } c_i = \sum_{j=0}^{i}a_jb_{i-j}\tag{2}
 \]
-앞으로 \textbf{coefficient representation}과 \textbf{point-value representation}에 대해 이야기 해볼 것이다. 전자의 연산량은 앞서 $(2)$와 같이 $\Theta (n^2)$이다. 그리고 후자는 $\Theta (n)$ 복잡도를 가진다. 이 두 표현법을 바꿔가며 연산하면 앞서 $\Theta (n^2)$으로 표현할 수 있던 표현식을 $\Theta (n \log n)$ 복잡도에 풀어낼 수 있다. 이를 수행 하기 위해선, 제일 먼저 1의 거듭제곱근\textbf{complex root of unity}에 대해 학습해야한다. 그리고 FFT를 사용한 변환과 역변환도 이야기 해볼 것이며, FFT를 어떻게 빠르게 구현하는지에 대해서도 다룰 것이다. 이후로는 복소수를 빈번히 사용하기에, $sqrt{-1}$를 줄여 기호 $i$라고 표현하겠다.
+앞으로 \textbf{coefficient representation}과 \textbf{point-value representation}에 대해 이야기 해볼 것이다. 전자의 연산량은 앞서 $(2)$와 같이 $\Theta (n^2)$이다. 그리고 후자는 $\Theta (n)$ 복잡도를 가진다. 이 두 표현법을 바꿔가며 연산하면 앞서 $\Theta (n^2)$으로 표현할 수 있던 표현식을 $\Theta (n \log n)$ 복잡도에 풀어낼 수 있다. 이를 수행 하기 위해선, 제일 먼저 1의 거듭제곱근\textbf{complex root of unity}에 대해 학습해야한다. 그리고 FFT를 사용한 변환과 역변환도 이야기 해볼 것이며, FFT를 어떻게 빠르게 구현하는지에 대해서도 다룰 것이다. 이후로는 복소수를 빈번히 사용하기에, 
+$\sqrt{-1}$를 줄여 기호 $i$라고 표현하겠다.
 
 \subsection{다항식을 표현하는 법}
 
@@ -173,7 +174,7 @@ Fast multiplication of polynomials in coefficient form
 빠르게 두 다항식의 곱을 구할 전략은 다음과 같다. 두 다항식의 계수 벡터를 가지고 있다하자. $a = (a_0, a_1, ... ,a_{n-1}), b = (b_0, b_1, ... , b_{n-1})$. $n \log n$ 시간을 소요하여 다음의 값을 구한다. 
 \[
     A(w_{2n}^0), A(w_{2n}^1), .. A(w_{2n}^{2n-1}), B(w_{2n}^0), B(w_{2n}^1), ... B(w_{2n}^{2n-1})\tag{6}
-    \]
+\]
 $w_{2n}^i$에 대한 설명은 다음 섹션에서 할 것이다. 일단은 임의의 값이라고 하자. 
 그렇다면 $n$ 차항인 $A$ 다항식의 $(A_{w_0})$의 값을 구하기 위해선 $\Theta (n)$의 복잡도가 필요하다. 식 $(6)$을 구하기 위해선 총 $4n^2$의 연산이 필요할 것이다. 
 그러나 DFT를 이용하면 $\Theta (n \log n)$ 복잡도로 수행할 수 있다. 
@@ -205,7 +206,7 @@ $w_{2n}^i$에 대한 설명은 다음 섹션에서 할 것이다. 일단은 임�
 \\
 4. point-value로 표현된 다항식 $C$에 대하여 역 DFT를 구하기 위해 FFT를 수행한다.
 \subsection{DFT와 FFT}
-위에서 살펴본 4 단계의 전략중 2, 4번에 대해 $\Theta (n)$을 이용할 수 있는 것은 1의 거듭제곱근\textbf{root of unity}의 성질 덕분이다. 
+위에서 살펴본 4 단계의 전략중 2, 4번에 대해 $\Theta (n \log n)$을 이용할 수 있는 것은 1의 거듭제곱근\textbf{root of unity}의 성질 덕분이다. 
 이 섹션에서는 복소수의 거듭제곱근과 그의 성질에 대해 알아볼 것 이다.
 \\
 \\
@@ -385,7 +386,7 @@ vector<int> FFT(vector<int> a)
     }
     vector<int> yzero, yone;
     yzero = FFT(azero);
-    yone = FFT(yone);
+    yone = FFT(aone);
 
     vector<int> ret(n);
     for (int i=0; i<n/2; i++)

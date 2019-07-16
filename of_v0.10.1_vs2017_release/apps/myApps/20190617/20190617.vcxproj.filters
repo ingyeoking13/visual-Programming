@@ -20,6 +20,9 @@
     <ClInclude Include="src\HandWriting.hpp">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\Trick.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />

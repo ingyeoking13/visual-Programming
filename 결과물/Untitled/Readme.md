@@ -14,3 +14,7 @@ from `tsukuru.hayato-works`
 ## [190711_MovingLineOnText](190711_MovingLineOnText/Readme.md)
 
 ![.](190711_MovingLineOnText/190711_MovingLineOnText.gif)  
+
+## [190717_Trick](190717_Trick/Readme.md)
+
+![.](190717_Trick/190717_Trick.gif)
