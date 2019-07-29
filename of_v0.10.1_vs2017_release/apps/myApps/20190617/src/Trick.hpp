@@ -84,7 +84,6 @@ private:
 		ofVertex(c + box.at(1));
 		ofEndShape();
 
-
 		ofNoFill();
 		ofSetLineWidth(3);
 		ofSetColor(0);

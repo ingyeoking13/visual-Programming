@@ -4,8 +4,7 @@ void ofApp::setup()
 {
 
 	ofBackground(239);
-	ofSetBackgroundAuto(true);
-	ofSetVerticalSync(true);
+	//ofSetVerticalSync(true);
 
 	trick = make_shared<Trick>();
 	trick->setup();
