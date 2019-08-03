@@ -17,4 +17,13 @@ from `tsukuru.hayato-works`
 
 ## [190717_Trick](190717_Trick/Readme.md)
 
+from `hayato works blog`
+
 ![.](190717_Trick/190717_Trick.gif)
+
+
+## [190803_rotatingTablets](190803_rotatingTablets/Readme.md)
+
+from `jukiyoshi blog`
+
+![.](190803_rotatingTablets/190803_rotatingTablets.gif)

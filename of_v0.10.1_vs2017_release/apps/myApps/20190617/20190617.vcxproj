@@ -183,7 +183,6 @@
     <ClCompile Include="src\ofApp.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Trick.hpp" />
     <ClInclude Include="src\ofApp.h" />
   </ItemGroup>
   <ItemGroup>

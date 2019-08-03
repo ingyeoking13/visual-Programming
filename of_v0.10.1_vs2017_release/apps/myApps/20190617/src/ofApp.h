@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ofMain.h"
-#include "Trick.hpp"
 
 class ofApp : public ofBaseApp{
 
@@ -10,7 +9,5 @@ class ofApp : public ofBaseApp{
 		void update();
 		void draw();
 
-		ofFbo fbo;
-
-		shared_ptr<Trick> trick;
+		ofEasyCam cam;
 };
