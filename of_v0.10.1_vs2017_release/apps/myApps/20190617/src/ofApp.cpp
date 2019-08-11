@@ -1,82 +1,99 @@
 ﻿#include "ofApp.h"
 
-vector<glm::vec3> top, bottom;
-vector<glm::vec3> a, b, c, d;
+int cnt = 0;
+char s[500];
 
+int ppow = 2;
+bool chk = false;
+string str;
+int timeSteps;
 void ofApp::setup() {
 
 	ofSetFrameRate(60);
 	ofSetWindowTitle("openFrameworks");
+	font.loadFont("BMHANNAPro.ttf", 90);
+
+	chk = false;
+	cnt = 0;
+	timeSteps = pow(10, ppow - 1);
 
 	ofBackground(239);
 
-	int radius = 50, depth = 15, span = 5;
-
-	for (auto deg = 0; deg < 360; deg += span) {
-		top.push_back(glm::vec3(radius * cos(deg * DEG_TO_RAD), radius * sin(deg * DEG_TO_RAD), depth * 0.5));
-		bottom.push_back(glm::vec3(radius * cos(deg * DEG_TO_RAD), radius * sin(deg * DEG_TO_RAD), depth * -0.5));
-
-		a.push_back(glm::vec3(radius * cos(deg * DEG_TO_RAD), radius * sin(deg * DEG_TO_RAD), depth * 0.5 + 1));
-		b.push_back(glm::vec3(radius * cos((deg + span) * DEG_TO_RAD), radius * sin((deg + span) * DEG_TO_RAD), depth * 0.5 + 1));
-		c.push_back(glm::vec3(radius * cos((deg + span) * DEG_TO_RAD), radius * sin((deg + span) * DEG_TO_RAD), depth * -0.5 - 1));
-		d.push_back(glm::vec3(radius * cos(deg * DEG_TO_RAD), radius * sin(deg * DEG_TO_RAD), depth * -0.5 - 1));
-	}
-
-	ofEnableDepthTest();
+	int w = 500;
+	a = myRect(250, 600 -50, 50);
+	b = myRect(350, 600 -w , w);
+	b.mass = pow(100, ppow);
+	a.mass = 1;
+	a.vel.x = 0;
+	b.vel.x = ((double)-1) / timeSteps;
+	str = string(itoa(cnt, s, 10));
 }
 
-//--------------------------------------------------------------
 void ofApp::update() {
-
-	ofSeedRandom(39);
+	for (int i = 0; i < timeSteps; i++) {
+		if (a.chkCollisionWithRect(b))
+		{
+			double v1 = a.CollisionWithRect(b);
+			double v2 = b.CollisionWithRect(a);
+			a.vel.x = v1;
+			b.vel.x = v2;
+			cnt++;
+			chk = true;
+		}
+		if (a.chkCollisionWithWall())
+		{
+			a.CollisionWithWall();
+			cnt++;
+			chk = true;
+		}
+		a.update();
+		b.update();
+	}
 }
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-
-	this->cam.begin();
-
-	for (int x = -300; x <= 300; x += 150) {
-
-		for (int y = -300; y <= 300; y += 150) {
-
-			ofPushMatrix();
-			ofTranslate(x, y);
-
-			auto rotate = ofMap(ofNoise(x * 0.005, y * 0.005, ofGetFrameNum() * 0.005), 0, 1, -360, 360);
-			ofRotateY(rotate);
-			ofRotateX(rotate);
-
-			ofSetColor(39);
-			for (int i = 0; i<a.size(); i++)
-			{
-				ofBeginShape();
-				ofVertex(a[i]);
-				ofVertex(b[i]);
-				ofVertex(c[i]);
-				ofVertex(d[i]);
-				ofEndShape(true);
-			}
-
-			ofSetColor(239);
-
-			ofBeginShape();
-			ofVertices(top);
-			ofEndShape(true);
-
-			ofBeginShape();
-			ofVertices(bottom);
-			ofEndShape(true);
-
-			ofPopMatrix();
-		}
+	if (chk)
+	{
+		str = string(itoa(cnt, s, 10));
+		chk = false;
 	}
-	this->cam.end();
+
+	ofSetColor(39);
+	ofDrawRectangle(a.pos, a.width, a.width);
+	ofDrawLine(100, 0, 100, ofGetHeight());
+	ofSetColor(139);
+	ofDrawRectangle(b.pos, b.width, b.width);
+
+	ofSetColor(39);
+	font.drawString(str, ofGetWidth() / 2, ofGetHeight() / 2);
+	font.drawString(
+		u8"Power : " +
+		ofToString(ppow), ofGetWidth() / 2, ofGetHeight() / 2 - 100);
+	font.drawString(
+		u8"key 'd', 'u'", ofGetWidth() / 2, ofGetHeight() / 2 - 200);
+}
+
+void ofApp::keyPressed(int key)
+{
+	switch(key)
+	{ 
+	case 'u' :
+		ppow++;
+		if (ppow == 10) ppow--;
+		setup();
+		break;
+	case 'd' :
+		ppow--;
+		if (ppow == 0) ppow++;
+		setup();
+		break;
+	}
+	
 }
 
 //--------------------------------------------------------------
 int main() {
-
-	ofSetupOpenGL(720, 720, OF_WINDOW);
+	ofSetupOpenGL(1420, 960, OF_WINDOW);
 	ofRunApp(new ofApp());
 }

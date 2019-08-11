@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "movingRec.cpp"
 
 class ofApp : public ofBaseApp{
 
@@ -8,6 +9,9 @@ class ofApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
+		void keyPressed(int key);
 
-		ofEasyCam cam;
+		myRect a, b;
+		ofTrueTypeFont font;
+		ofSoundPlayer sound;
 };
