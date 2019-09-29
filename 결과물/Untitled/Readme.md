@@ -31,3 +31,14 @@ from `jukiyoshi blog`
 ## [190810_PerfectlyElasticCollision](190810_PerfectlyElasticCollision/Readme.md) 
 
 ![.](190810_PerfectlyElasticCollision/190810_PerfectlyElasticCollision.gif)
+
+## [190926_Waves](190926_Waves/Readme.md)  
+
+![.](190926_Waves/Waves.gif)
+
+## [190927_Waves2](190927_Waves2/Readme.md)  
+
+from `junkiyoshi` work
+
+![.](190927_Waves2/waves.gif)
+  

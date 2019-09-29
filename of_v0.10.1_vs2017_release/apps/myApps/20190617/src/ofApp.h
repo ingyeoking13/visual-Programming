@@ -9,9 +9,9 @@ class ofApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
-		void keyPressed(int key);
 
-		myRect a, b;
 		ofTrueTypeFont font;
 		ofSoundPlayer sound;
+
+		ofEasyCam cam;
 };
