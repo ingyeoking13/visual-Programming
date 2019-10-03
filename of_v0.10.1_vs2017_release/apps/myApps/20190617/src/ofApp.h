@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ofMain.h"
-#include "movingRec.cpp"
 
 class ofApp : public ofBaseApp{
 

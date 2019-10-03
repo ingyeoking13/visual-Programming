@@ -6,8 +6,9 @@ void ofApp::setup() {
 	ofSetWindowTitle("openFrameworks");
 
 	ofBackground(239);
-	ofSetLineWidth(3);
+	ofSetLineWidth(2);
 	ofEnableDepthTest();
+
 }
 
 //--------------------------------------------------------------
@@ -20,48 +21,51 @@ void ofApp::update() {
 void ofApp::draw() {
 
 	this->cam.begin();
+	ofRotateY(ofGetFrameNum() * -0.5);
 
-	auto len = 300;
-	for (auto z = len * -0.5; z <= len * 0.5; z += 10) {
+	int boxUnitSize = 40;
+	for (int x = -100; x <= 100; x += boxUnitSize)
+	{
+		for (int y =-100; y<= 100; y+= boxUnitSize)
+		{ 
+			for (int z = -100; z <= 100; z += boxUnitSize)
+			{
+				auto noise = ofNoise(ofGetFrameNum() * 0.006, x * 0.005, y * 0.005, z * 0.005);
+				ofPushMatrix();
+				// non box
+				if (noise < 0.2);
+				// transparent
+				else if (noise < 0.5)
+				{
+					ofNoFill();
+					ofSetColor(39);
+					ofDrawBox(glm::vec3(x, y, z), boxUnitSize-3);
+				}
+				// no transparent, but have border
+				else if ( noise < 0.8 )
+				{
+					ofFill();
+					ofSetColor(239);
+					ofDrawBox(glm::vec3(x, y, z), boxUnitSize-5);
 
-		vector<glm::vec3> vertices_1, vertices_2;
-		for (auto param = len * -0.5; param <= len * 0.5; param += 3) {
+					ofNoFill();
+					ofSetColor(39);
+					ofDrawBox(glm::vec3(x, y, z), boxUnitSize-3);
+				}
+				// no transparent, but have border. another color.
+				else
+				{
+					ofFill();
+					ofSetColor(39);
+					ofDrawBox(glm::vec3(x, y, z), boxUnitSize-3);
 
-			auto height_1 = ofMap(ofNoise(param * 0.005, ofGetFrameNum() * 0.01 + z * 0.005), 0, 1, len * -0.35, 0);
-			auto height_2 = ofMap(ofNoise(param * 0.005, ofGetFrameNum() * 0.01 + z * 0.005), 0, 1, 0, len * 0.35);
-			vertices_1.push_back(glm::vec3(param, height_1, z));
-			vertices_2.push_back(glm::vec3(param, height_2, z));
+					ofSetColor(239);
+					ofDrawBox(glm::vec3(x, y, z), boxUnitSize-5);
+
+				}
+				ofPopMatrix();
+			}
 		}
-
-		vertices_1.push_back(glm::vec3(len * 0.5, len * -0.5, z));
-		vertices_1.push_back(glm::vec3(len * -0.5, len * -0.5, z));
-
-		ofFill();
-		ofSetColor(39);
-		ofBeginShape();
-		ofVertices(vertices_1);
-		ofEndShape(true);
-
-		ofNoFill();
-		ofSetColor(239);
-		ofBeginShape();
-		ofVertices(vertices_1);
-		ofEndShape(true);
-
-		vertices_2.push_back(glm::vec3(len * 0.5, len * 0.5, z));
-		vertices_2.push_back(glm::vec3(len * -0.5, len * 0.5, z));
-
-		ofFill();
-		ofSetColor(39);
-		ofBeginShape();
-		ofVertices(vertices_2);
-		ofEndShape(true);
-
-		ofNoFill();
-		ofSetColor(239);
-		ofBeginShape();
-		ofVertices(vertices_2);
-		ofEndShape(true);
 	}
 
 	this->cam.end();
