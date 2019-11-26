@@ -8,9 +8,11 @@ class ofApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
+		void keyPressed(int key);
 
 		ofTrueTypeFont font;
 		ofSoundPlayer sound;
 
 		ofEasyCam cam;
 };
+

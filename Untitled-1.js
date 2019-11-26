@@ -2,7 +2,7 @@ var grid;
 var next;
 var pixelsa;
 
-var DiffusionRateA = 1.0;
+var DiffusionRateA = 1.5;
 var DiffusionRateB = 0.5;
 var feedRateA = 0.085;
 var killRateB = 0.062;
@@ -26,8 +26,8 @@ function setup()
             next[x][y] ={a:1, b:0};
         }
     }
-    for (var x = 50; x<55; x++)
-        for (var y= 50; y<55; y++)
+    for (var x = 90; x<110; x++)
+        for (var y= 90; y<110; y++)
             grid[x][y].b =1;
 }
 
@@ -76,13 +76,32 @@ function draw()
             for (var y = 0; y<height; y++)
             {
                 var pix = (x+ y*width)*4;
-                var c = floor((next[x][y].a - next[x][y].b)*255);
-                c = constrain(c, 0, 255);
-;
-                pixelsa[pix+0] = c;
-                pixelsa[pix+1] = c;
-                pixelsa[pix+2] = c;
-                pixelsa[pix+3] = 255;
+                var c = abs(next[x][y].a - next[x][y].b);
+                if ( c <= 0.2)
+                {
+                pixelsa[pix+0] = 221;
+                pixelsa[pix+1] = 160;
+                pixelsa[pix+2] = 221;
+                }
+                else if (c<=0.4)
+                {
+                pixelsa[pix+0] = 218;
+                pixelsa[pix+1] = 112;
+                pixelsa[pix+2] = 214;
+                }
+                else  if ( c<=0.8)
+                {
+                pixelsa[pix+0] = 139;
+                pixelsa[pix+1] = 139;
+                pixelsa[pix+2] = 139;
+                }
+                else 
+                {
+                pixelsa[pix+0] = 39;
+                pixelsa[pix+1] = 39;
+                pixelsa[pix+2] = 39;
+                }
+                pixelsa[pix+3] = c*255;
 
             }
         }
