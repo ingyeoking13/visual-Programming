@@ -14,5 +14,6 @@ class ofApp : public ofBaseApp{
 		ofSoundPlayer sound;
 
 		ofEasyCam cam;
+		ofMesh mesh;
 };
 

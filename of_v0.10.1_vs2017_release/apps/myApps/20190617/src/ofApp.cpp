@@ -1,97 +1,70 @@
 ﻿#include "ofApp.h"
 using ui = unsigned int;
 
-ofImage image;
 
 void ofApp::setup() {
 
 	ofSetFrameRate(60);
 	ofSetWindowTitle("openFrameworks");
+	ofBackground(30);
 
-	ofBackground(239);
-	image.load("angelinaDanilova.jpg");
-	ofSetWindowShape(image.getHeight(), image.getWidth());
-
-	image.setImageType(OF_IMAGE_GRAYSCALE);
-	for (ui i = 0; i < image.getHeight(); i++)
-	{
-		for (ui j = 0; j < image.getWidth(); j++)
-		{
-			ofColor col = image.getColor(j, i);
-
-			double factor =1;
-			int oldR = col.r;
-			int oldG = col.g;
-			int oldB = col.b;
-
-			int newR = round((factor* col.r)/ 255.0) * (255.0/factor);
-			int newG = round((factor* col.g)/ 255.0) * (255.0/factor); 
-			int newB = round((factor* col.b)/ 255.0) * (255.0/factor);
-
-			double errorR = col.r - newR;
-			double errorG = col.g - newG;
-			double errorB = col.b - newB;
-
-			image.setColor(j, i, ofColor(newR, newG, newB));
-
-			if (j + 1 < image.getWidth())
-			{
-				ofColor right = image.getColor(j + 1, i);
-				image.setColor(j + 1, i,
-					ofColor(right.r + errorR * 7.0 / 16,
-						right.g + errorG * 7.0 / 16,
-						right.b + errorB * 7.0 / 16.0));
-			}
-
-			if (j - 1 >= 0 && i + 1 < image.getHeight())
-			{
-				ofColor downLeft = image.getColor(j - 1, i + 1);
-				image.setColor(j - 1, i + 1,
-					ofColor(downLeft.r + errorR * 3.0 / 16,
-						downLeft.g + errorG * 3.0 / 16,
-						downLeft.b + errorB * 3.0 / 16.0));
-			}
-
-			if (i + 1 < image.getHeight())
-			{
-				ofColor down = image.getColor(j, i + 1);
-				image.setColor(j, i + 1,
-					ofColor(down.r + errorR * 5.0 / 16,
-						down.g + errorG * 5.0 / 16,
-						down.b + errorB * 5.0 / 16.0));
-			}
-
-			if (j + 1 < image.getWidth() && i + 1 < image.getWidth())
-			{
-				ofColor downRight = image.getColor(j + 1, i + 1);
-				image.setColor(j + 1, i + 1,
-					ofColor(downRight.r + errorR * 1.0 / 16,
-						downRight.g + errorG * 1.0 / 16,
-						downRight.b + errorB * 1.0 / 16.0));
-			}
-		}
-	}
-	image.update();
+	ofEnableBlendMode(ofBlendMode::OF_BLENDMODE_ADD);
 }
 
-//--------------------------------------------------------------
 void ofApp::update() {
+	ofSeedRandom(39);
+	this->mesh.clear();
+	this->mesh.setMode(OF_PRIMITIVE_LINE_STRIP);
+
+	for (int i = 0; i < 800; i++) {
+
+		auto location = glm::vec3(
+			ofMap(ofNoise(ofRandom(1000), ofGetFrameNum() * 0.001), 0, 1, ofGetWidth() * -0.5, ofGetWidth() * 0.5),
+			ofMap(ofNoise(ofRandom(1000), ofGetFrameNum() * 0.001), 0, 1, ofGetHeight() * -0.5, ofGetHeight() * 0.5),
+			0);
+
+		location = glm::normalize(location) * ofRandom(200, 350);
+		this->mesh.addVertex(location);
+
+		ofColor color;
+		color.setHsb((int)ofMap(location.x, -350, 350, 240, 240 + 255) % 255, 255, 255, 32);
+		this->mesh.addColor(color);
+	}
+
+	for (int i = 0; i < this->mesh.getVertices().size(); i++) {
+
+		auto location = this->mesh.getVertices()[i];
+		vector<int> near_index_list;
+		for (int k = 0; k < this->mesh.getVertices().size(); k++) {
+
+			auto other = this->mesh.getVertices()[k];
+			auto distance = glm::distance(location, other);
+
+			if (distance < 50) {
+
+				near_index_list.push_back(k);
+			}
+		}
+
+		if (near_index_list.size() >= 3) {
+
+			this->mesh.addIndex(near_index_list[0]);
+			this->mesh.addIndex(near_index_list[1]);
+			this->mesh.addIndex(near_index_list[2]);
+		}
+	}
 }
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-	this->cam.begin();
-	image.draw(-image.getWidth()/2, -image.getHeight()/2);
-	this->cam.end();
+	ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2);
+	this->mesh.draw();
+	this->mesh.drawWireframe();
+	this->mesh.drawVertices();
 }
 
 void ofApp::keyPressed(int key)
 {
-	if (key == OF_KEY_UP) this->cam.move(0, -50,0);
-	if (key == OF_KEY_DOWN) this->cam.move(0, 50,0);
-	if (key == OF_KEY_LEFT) this->cam.move(-50, 0,0);
-	if (key == OF_KEY_RIGHT) this->cam.move(50, 0,0);
-
 }
 
 //--------------------------------------------------------------
