@@ -14,7 +14,6 @@ void ofApp::setup() {
 void ofApp::update() {
 	ofSeedRandom(39);
 	this->mesh.clear();
-	this->mesh.setMode(OF_PRIMITIVE_LINE_STRIP);
 
 	for (int i = 0; i < 800; i++) {
 
