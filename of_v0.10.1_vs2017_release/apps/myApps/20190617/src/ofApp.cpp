@@ -1,4 +1,5 @@
 ﻿#include "ofApp.h"
+#include <algorithm>
 using ui = unsigned int;
 
 
@@ -6,60 +7,65 @@ void ofApp::setup() {
 
 	ofSetFrameRate(60);
 	ofSetWindowTitle("openFrameworks");
-	ofBackground(30);
-
-	ofEnableBlendMode(ofBlendMode::OF_BLENDMODE_ADD);
+	ofBackground(39);
+	ofSetLineWidth(3);
 }
 
 void ofApp::update() {
+
 	ofSeedRandom(39);
-	this->mesh.clear();
-
-	for (int i = 0; i < 800; i++) {
-
-		auto location = glm::vec3(
-			ofMap(ofNoise(ofRandom(1000), ofGetFrameNum() * 0.001), 0, 1, ofGetWidth() * -0.5, ofGetWidth() * 0.5),
-			ofMap(ofNoise(ofRandom(1000), ofGetFrameNum() * 0.001), 0, 1, ofGetHeight() * -0.5, ofGetHeight() * 0.5),
-			0);
-
-		location = glm::normalize(location) * ofRandom(200, 350);
-		this->mesh.addVertex(location);
-
-		ofColor color;
-		color.setHsb((int)ofMap(location.x, -350, 350, 240, 240 + 255) % 255, 255, 255, 32);
-		this->mesh.addColor(color);
-	}
-
-	for (int i = 0; i < this->mesh.getVertices().size(); i++) {
-
-		auto location = this->mesh.getVertices()[i];
-		vector<int> near_index_list;
-		for (int k = 0; k < this->mesh.getVertices().size(); k++) {
-
-			auto other = this->mesh.getVertices()[k];
-			auto distance = glm::distance(location, other);
-
-			if (distance < 50) {
-
-				near_index_list.push_back(k);
-			}
-		}
-
-		if (near_index_list.size() >= 3) {
-
-			this->mesh.addIndex(near_index_list[0]);
-			this->mesh.addIndex(near_index_list[1]);
-			this->mesh.addIndex(near_index_list[2]);
-		}
-	}
 }
+
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-	ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2);
-	this->mesh.draw();
-	this->mesh.drawWireframe();
-	this->mesh.drawVertices();
+
+
+		for (ui radLen = 50; radLen <= 200; radLen += 30)
+		{
+			vector<glm::vec2> v, revv;
+			vector<glm::vec2> inner_v, inner_revv;
+
+			ui st_deg = ofGetFrameNum()*0.3 * ofRandom(3, 8)+ ofRandom(720);
+			ui len = ofRandom(100, 360);
+
+			for (ui i = st_deg; i < st_deg + len; i++)
+			{
+				double rad = i * DEG_TO_RAD;
+				v.push_back({ cos(rad) * radLen, sin(rad) * radLen });
+				revv.push_back({ cos(rad) * (radLen - 10), sin(rad) * (radLen - 10) });
+
+			}
+
+			st_deg = ofGetFrameNum()*0.3 * ofRandom(3, 8)+ ofRandom(720);
+			len = ofRandom(100, 360);
+
+			for (ui i = st_deg; i < st_deg + len; i++)
+			{
+				double rad = i * DEG_TO_RAD;
+				inner_v.push_back({ cos(rad) * (radLen-3), sin(rad) * (radLen-3) });
+				inner_revv.push_back({ cos(rad) * (radLen - 7), sin(rad) * (radLen - 7) });
+			}
+
+			ofPushMatrix();
+			ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2);
+			ofSetColor(239);
+
+			reverse(revv.begin(), revv.end());
+			ofBeginShape();
+			ofVertices(v);
+			ofVertices(revv);
+			ofEndShape(true);
+
+			reverse(inner_revv.begin(), inner_revv.end());
+
+			ofSetColor(39);
+			ofBeginShape();
+			ofVertices(inner_v);
+			ofVertices(inner_revv);
+			ofEndShape(true);
+			ofPopMatrix();
+		}
 }
 
 void ofApp::keyPressed(int key)
